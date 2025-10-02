@@ -40,7 +40,7 @@ Insgesamt wurden 20 Datenqualitätsprobleme identifiziert. Davon konnten sieben 
 
 Alle bereinigten Datensätze wurden in einer neuen Tabelle gespeichert, sodass die Rohdaten unverändert erhalten bleiben. Darüber hinaus wurde der Datensatz um zusätzliche Spalten angereichert, beispielsweise time_to_ship sowie in Einzelkomponenten aufgeteilte Adressinformationen, um eine detailliertere Analyse zu ermöglichen.
 
-![Problem_log](/Bilder/Problem_log.png)
+![Qualitätsprotokoll](/Bilder/Qualitätsprotokoll.png)
 
 Diese Tabelle dokumentiert alle aufgetretenen Fehler, ihren Einfluss auf die Datenanalyse sowie den Umgang mit dem Problem (als Tabelle [hier](/Datenqualitätsprotokoll.xlsx)). Die verschiedenen Problemtypen, ihre Analyse und der gewählte Lösungsansatz werden im Folgenden beispielhaft genauer dargestellt. 
 
