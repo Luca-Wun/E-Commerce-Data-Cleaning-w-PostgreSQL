@@ -128,7 +128,7 @@ FROM order_data;
 
   </td>
     <td>
-      <img src="Bilder/name_clean.png" alt="namen" width="150">
+      <img src="Bilder/name_clean.png" alt="namen" width="175">
     </td>
   </tr>
 </table>
@@ -150,7 +150,7 @@ GROUP BY region;
 
   </td>
     <td>
-      <img src="Bilder/falsche Kategorisierung.png" alt="Ländercodes" width="150">
+      <img src="Bilder/falsche Kategorisierung.png" alt="Ländercodes" width="200">
     </td>
   </tr>
 </table>
@@ -174,7 +174,7 @@ FROM region_data;
 
   </td>
     <td>
-      <img src="Bilder/falsche Kategorisierung_clean.png" alt="Ländercodes_clean" width="200">
+      <img src="Bilder/falsche Kategorisierung_clean.png" alt="Ländercodes_clean" width="225">
     </td>
   </tr>
 </table>
@@ -248,24 +248,18 @@ Die Telefonnummern wurden aus dem Datensatz entfernt, um auf fehlende Kundeninfo
 ### Fehlende Werte
 Fehlende Werte können nur dann korrigiert werden, wenn sie aus einer anderen Informationsquelle abgeleitet werden können. So wurde im Abschnitt Falsche Kategorisierung bereits ein Beispiel gezeigt, bei dem fehlende Regionen anhand der im Datensatz enthaltenen Länderdaten ergänzt werden konnten. Auch in vielen Telefonnummern fehlten Ländervorwahlen. Da die Herkunftsländer der Kunden bekannt waren, konnten diese Vorwahlen mithilfe einer externen Referenztabelle zu Länder- und Telefoncodes ergänzt werden. 
 
-<table>
-  <tr>
-    <td style="vertical-align: top; padding-right: 15px;">
-
-<pre><code class="language-sql">UPDATE customer_data_clean cdc
+```
+UPDATE customer_data_clean cdc
 SET phone_number_clean = CONCAT(cpc.phone_code, cdc.phone_number_clean)
 FROM order_data_clean odc
 JOIN country_phone_codes cpc 
 	ON cpc.country_code = odc.country_code_clean
 WHERE cdc.user_id = odc.user_id
-	AND cdc.phone_number_clean NOT LIKE '%+%'; </code></pre>
+	AND cdc.phone_number_clean NOT LIKE '%+%'; 
+  ```
 
-  </td>
-    <td>
-      <img src="Bilder/Phone_code.png" alt="Phone_code" width="450">
-    </td>
-  </tr>
-</table>
+ <img src="Bilder/Phone_code.png" alt="Phone_code" width="350">
+
 Alle weiteren fehlenden Werte ließen sich nicht imputieren und wurden daher - gemeinsam mit der Einschätzung ihres Einflusses auf die Analyse - im Datenqualitätsprotokoll dokumentiert.
 <br> </br>
 
