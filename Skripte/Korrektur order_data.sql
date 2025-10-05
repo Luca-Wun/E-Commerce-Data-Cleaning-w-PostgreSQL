@@ -5,17 +5,17 @@ CREATE TABLE order_data_clean AS
 
 -- FINDEN DOPPELTER IDs --
 WITH order_double AS(
-SELECT order_id, COUNT(*)
-FROM order_data
-GROUP BY order_id
-HAVING COUNT(*)>1
+	SELECT order_id, COUNT(*)
+	FROM order_data
+	GROUP BY order_id
+	HAVING COUNT(*)>1
 ),
 
 -- FINDEN DES JEWEILS ZWEITEN FALLS --
 double_numbered AS(
-SELECT ctid, order_id, row_number() OVER (PARTITION BY order_id) AS row_num
-FROM order_data
-WHERE order_id IN (SELECT order_id FROM order_double)
+	SELECT ctid, order_id, row_number() OVER (PARTITION BY order_id) AS row_num
+	FROM order_data
+	WHERE order_id IN (SELECT order_id FROM order_double)
 )
 
 

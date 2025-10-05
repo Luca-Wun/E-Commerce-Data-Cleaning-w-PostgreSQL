@@ -6,7 +6,7 @@
 -- keine auffälligen Werte
 SELECT user_id
 FROM order_data
-WHERE user_id = ''; --/NULL/' '
+WHERE user_id = ''; --ALTERNATIVE: /NULL/' '
 
 
 
@@ -20,28 +20,28 @@ HAVING COUNT(*) > 1;
 
 
 -- in 37 Fällen sind es exakte Duplikate 
-WITH RoWNumCTE AS(
-SELECT *,
-ROW_NUMBER() OVER (
-PARTITION BY order_id,
-			 user_id, 
-			 product_id,
-			 purchase_ts
-) row_num
-FROM order_data
+WITH row_num_cte AS(
+	SELECT *,
+	ROW_NUMBER() OVER (
+	PARTITION BY order_id,
+				 user_id, 
+				 product_id,
+				 purchase_ts
+	) row_num
+	FROM order_data
 )
 
 SELECT *
-FROM RoWNumCTE 
+FROM row_num_cte 
 WHERE row_num > 1;
 
 
 -- nach Stichprobenkontrolle: Nur die user_ids unterscheidet sich
 WITH order_double AS(
-SELECT order_id, COUNT(*)
-FROM order_data
-GROUP BY order_id
-HAVING COUNT(*)>1
+	SELECT order_id, COUNT(*)
+	FROM order_data
+	GROUP BY order_id
+	HAVING COUNT(*)>1
 )
 
 SELECT row_number() OVER (PARTITION BY order_id) AS row_num, *
@@ -52,7 +52,7 @@ WHERE order_id IN (SELECT order_id FROM order_double);
 -- keine leeren, NULL oder Leerzeichen
 SELECT order_id
 FROM order_data
-WHERE order_id = ''; --NULL/' '
+WHERE order_id = ''; --ALTERNATIVE: /NULL/' '
 
 
 
@@ -72,7 +72,7 @@ WHERE purchase_ts LIKE '%-%';
 -- Ein Wert hat außerdem zwei Leerzeichen
 SELECT * 
 FROM order_data
-WHERE purchase_ts = '  '; --/NULL/''
+WHERE purchase_ts = '  '; --ALTERNATIVE: /NULL/''
 
 
 -------- FEHLER IN SHIP TIMESTAMP ------------------------------------------
@@ -80,7 +80,7 @@ WHERE purchase_ts = '  '; --/NULL/''
 -- keine Null-Werte, keine Werte mit Bindestrichen
 SELECT * 
 FROM order_data
-WHERE ship_ts LIKE '%-%'; --/NULL/''/'  '
+WHERE ship_ts LIKE '%-%'; --ALTERNATIVE: /NULL/''/'  '
 
 -- Versanddatum ist häufig vor dem Bestelldatum
 SELECT purchase_ts, ship_ts

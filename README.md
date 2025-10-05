@@ -55,7 +55,7 @@ Die vollständigen Skripte zur Fehleranalyse und Fehlerkorrektur für die einzel
 ### Duplikate
 Alle Spalten, die eindeutige Werte enthalten sollten, wurden systematisch auf Duplikate überprüft. Dabei zeigte sich, dass in der Spalte order_id insgesamt 145 doppelte Einträge vorhanden sind. Aus diesem Grund konnte für diese Spalte kein Primary Key etabliert werden.
 
-```
+```sql
 SELECT order_id, COUNT(*) AS count
 FROM order_data
 GROUP BY order_id
@@ -63,7 +63,7 @@ HAVING COUNT(*) > 1;
 ```
 Sich wiederholende IDs in den Bestelldaten wurden nicht entfernt, um erst Rücksprache zur Problemursache zu halten (falscher Eintrag oder falsche ID). Stattdessen wurde der jeweils zweite Fall einer ID mit einem '_DUP' am Ende markiert, um einzigartige IDs zu erhalten.
 
-```
+```sql
 -- FINDEN DOPPELTER IDs --
 WITH order_double AS(
     SELECT order_id, COUNT(*)
@@ -248,7 +248,7 @@ Die Telefonnummern wurden aus dem Datensatz entfernt, um auf fehlende Kundeninfo
 ### Fehlende Werte
 Fehlende Werte können nur dann korrigiert werden, wenn sie aus einer anderen Informationsquelle abgeleitet werden können. So wurde im Abschnitt Falsche Kategorisierung bereits ein Beispiel gezeigt, bei dem fehlende Regionen anhand der im Datensatz enthaltenen Länderdaten ergänzt werden konnten. Auch in vielen Telefonnummern fehlten Ländervorwahlen. Da die Herkunftsländer der Kunden bekannt waren, konnten diese Vorwahlen mithilfe einer externen Referenztabelle zu Länder- und Telefoncodes ergänzt werden. 
 
-```
+```sql
 UPDATE customer_data_clean cdc
 SET phone_number_clean = CONCAT(cpc.phone_code, cdc.phone_number_clean)
 FROM order_data_clean odc

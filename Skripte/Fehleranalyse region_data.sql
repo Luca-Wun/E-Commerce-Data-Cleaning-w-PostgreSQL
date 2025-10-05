@@ -24,7 +24,7 @@ GROUP BY region;
 -- Kontrolle der zugeordneten Länder: NA und North America steht für das gleiche
 SELECT region, country_code 
 FROM region_data
-WHERE region = 'North America'; --/'NA'
+WHERE region = 'North America'; --ALTERNATIVE: /'NA'
 
 -- Kontrolle der zugeordneten Länder: Region X.x gehört zu APAC
 SELECT country_code, region 

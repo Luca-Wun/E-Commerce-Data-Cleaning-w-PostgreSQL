@@ -49,10 +49,11 @@ END AS email_clean,
 -- KORREKTUR EINGABEFEHLER TELEFONNUMMER --------------------------------
 CASE 
 	WHEN LENGTH(
-			REGEXP_REPLACE(
-				REGEXP_REPLACE(phone_number, '[^0-9+]', '', 'g'), '^00', '+')) < 8 THEN NULL
+				REGEXP_REPLACE(
+								REGEXP_REPLACE(phone_number, '[^0-9+]', '', 'g'), '^00', '+')
+		) < 8 THEN NULL
 ELSE REGEXP_REPLACE(
-		REGEXP_REPLACE(phone_number, '[^0-9+]', '', 'g'), '^00', '+') 
+					REGEXP_REPLACE(phone_number, '[^0-9+]', '', 'g'), '^00', '+') 
 END AS phone_number_clean,
 
 

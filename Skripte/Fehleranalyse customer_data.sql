@@ -21,12 +21,12 @@ LIMIT 100;
 -- 489 mal groß-, 506 mal kleingeschrieben
 SELECT COUNT(*) 
 FROM customer_data
-WHERE name = UPPER(name); --/LOWER
+WHERE name = UPPER(name); --ALTERNATIVE: /LOWER
 
 -- 505 Namen mit Komma, 507 mit doppeltem Leerzeichen
 SELECT COUNT(*) 
 FROM customer_data
-WHERE name LIKE '%,%'; --/'  '
+WHERE name LIKE '%,%'; --ALTERNATIVE: /'  '
 
 -- Namen im falschen Format
 SELECT name
@@ -45,7 +45,7 @@ LIMIT 100;
 -- 525 mal großgeschrieben, 517 mal kleingeschrieben
 SELECT COUNT(*) 
 FROM customer_data
-WHERE address = UPPER(address); --/LOWER
+WHERE address = UPPER(address); --ALTERNATIVE: /LOWER
 
 --518 mal mehr als ein Komma
 SELECT COUNT(*)
@@ -68,7 +68,7 @@ WHERE email = UPPER(email);
 -- Suche nach klassischen Fehlern: 56 mal gmial statt gmail, 342 mal kein @ zeichen, 3 mal yaho.com
 SELECT email
 FROM customer_data
-WHERE email LIKE '% %'; --/LIKE gmial/.con/yaho/.comm/hotmial/' '
+WHERE email LIKE '% %'; --ALTERNATIVE: /LIKE gmial/.con/yaho/.comm/hotmial/' '
 
 
 -------- EINGABEFEHLER TELEFONNUMMER ------------------------------------------------
@@ -82,7 +82,7 @@ LIMIT 100;
 -- In 13.968 Bindestriche, 3951 Klammern, 3170 Pluszeichen, 4020 Punkte, 11656 Buchstaben
 SELECT COUNT(*)
 FROM customer_data
-WHERE phone_number !~ '^\+?[0-9]+$'; --/-/+/(/./~ '[A-Za-z]'
+WHERE phone_number !~ '^\+?[0-9]+$'; --ALTERNATIVE: /-/+/(/./~ '[A-Za-z]'
 
 -- 315 sehr kurze Telefonnummern - unplausibel
 SELECT phone_number
@@ -133,13 +133,13 @@ WHERE registration_date LIKE '%/%'; --/-//
 -- alle mit Bindestrich im korrekten Format (YYYY-MM-DD), bei Punkten alle in DD.MM.YYYY, bei Schrägstrich in MM/DD/YYYY
 SELECT COUNT(*)  
 FROM customer_data
-WHERE registration_date ~ '^\d{2}/\d{2}/\d{4}$'; --/ '^\d{2}\.\d{2}\.\d{4}$' / '^\d{4}-\d{2}-\d{2}$'
+WHERE registration_date ~ '^\d{2}/\d{2}/\d{4}$'; --ALTERNATIVE: / '^\d{2}\.\d{2}\.\d{4}$' / '^\d{4}-\d{2}-\d{2}$'
 
 -- Bestätigung der Datenformate bezüglich Platzierung von Tag und Monat
 SELECT COUNT(*)
 FROM customer_data
 WHERE SUBSTRING(registration_date FROM 1 FOR 2)::int > 12
-  AND registration_date ~ '^\d{2}/\d{2}/\d{4}$'; --/ '^\d{2}\.\d{2}\.\d{4}$' / '^\d{4}-\d{2}-\d{2}$'
+  AND registration_date ~ '^\d{2}/\d{2}/\d{4}$'; --ALTERNATIVE: / '^\d{2}\.\d{2}\.\d{4}$' / '^\d{4}-\d{2}-\d{2}$'
     
 
 -------- INKONSISTENTE BENENNUNG BONUS_MEMBER -----------------------------------------
