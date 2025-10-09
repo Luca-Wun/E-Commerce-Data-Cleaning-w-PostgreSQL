@@ -215,8 +215,7 @@ CASE
 	WHEN registration_date ~ '^\d{2}\.\d{2}\.\d{4}$' THEN to_date(registration_date, 'DD.MM.YYYY')
 	WHEN registration_date ~ '^\d{4}-\d{2}-\d{2}$' THEN to_date(registration_date, 'YYYY-MM-DD')
 END AS registration_date_clean,
-FROM customer_data;
-</code></pre>
+FROM customer_data;</code></pre>
 
   </td>
     <td>
